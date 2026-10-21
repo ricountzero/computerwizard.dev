@@ -370,11 +370,15 @@ button { font: inherit; color: inherit; }
 .school img { flex: none; mix-blend-mode: multiply; image-rendering: auto; }
 
 /* mail */
+/* ruled paper: line-height equals the rule step; --base puts each rule just under the text baseline */
 .letter {
+  --line: 26px;
+  --base: calc(var(--line) / 2 + .33em + 1px);
   display: grid;
-  gap: 10px;
   padding: 18px;
-  background: #fffaf0 repeating-linear-gradient(180deg, transparent 0 25px, #e8d3b0 25px 26px);
+  line-height: var(--line);
+  background: #fffaf0 repeating-linear-gradient(180deg, transparent 0 var(--base), #e8d3b0 var(--base) calc(var(--base) + 1px), transparent calc(var(--base) + 1px) var(--line));
+  background-origin: content-box;
   box-shadow: inset 0 0 0 2px #e0c08f, 3px 3px 0 rgba(0, 0, 0, .15);
   transform: rotate(-.6deg);
 }
@@ -455,7 +459,9 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
   .slots > li { min-height: 54px; font-size: 15px; }
 
   .quests { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; align-items: start; }
-  .quests.bots { align-items: stretch; }
+  .quests.even { align-items: stretch; }
+  .quests.even > .quest { display: flex; flex-direction: column; }
+  .quests.even .reward { margin-top: auto; }
   .quest { padding: 16px 18px; }
   .quest.has-ico { padding-left: 88px; }
   .quest-ico { top: 16px; left: 18px; width: 54px; height: 54px; border-radius: 10px; }
@@ -482,7 +488,7 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
   .school { font-size: 16px; gap: 14px; }
   .school img { width: 50px; height: 60px; }
 
-  .letter { max-width: 720px; margin: 0 auto; padding: 28px 32px; gap: 14px; font-size: 18px; }
+  .letter { --line: 30px; max-width: 720px; margin: 0 auto; padding: 28px 32px; font-size: 18px; }
   .btn { font-size: 17px; padding: 9px 18px; }
 
   footer { font-size: 15px; padding-top: 24px; }
