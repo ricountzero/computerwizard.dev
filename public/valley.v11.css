@@ -34,7 +34,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+/* the root carries the sky colour: iOS 26 Safari tints the status bar / camera island from the page background,
+   not from theme-color. body keeps the wood; JS switches the root to wood once the scene is scrolled away. */
+html { -webkit-text-size-adjust: 100%; background-color: var(--top, #4aa8e8); }
+html.below { background-color: var(--wood); }
 
 body {
   margin: 0;

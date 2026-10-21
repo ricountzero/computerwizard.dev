@@ -193,8 +193,10 @@
     }
     sky.fillStyle = bottom;
     sky.fillRect(0, hy, W, H - hy);
-    // mobile browsers paint the status bar / notch area with theme-color: match the sky, not the wood
+    // the status bar / camera island area takes theme-color (older Safari, Chrome) or the root background (iOS 26):
+    // match the sky, not the wood
     themeColor.content = top;
+    document.documentElement.style.setProperty('--top', top);
 
     // sun or moon travelling with the real clock
     const t = night ? ((hour + 4) % 24) / 9 : Math.min(1, Math.max(0, (hour - 5) / 15));
@@ -608,6 +610,11 @@
   function stop() { cancelAnimationFrame(raf); raf = 0; }
 
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(canvas);
+  // once the scene is scrolled off, the area under the status bar is wood, so the root follows
+  const stage = $('.stage');
+  const below = () => document.documentElement.classList.toggle('below', scrollY > stage.offsetHeight - 40);
+  addEventListener('scroll', below, { passive: true });
+  below();
   document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
   // watch the canvas box itself: in-app browsers (Telegram) resize the viewport without firing window resize.
   // The callback runs before paint, so the scene is rebuilt before a stretched frame can show.
