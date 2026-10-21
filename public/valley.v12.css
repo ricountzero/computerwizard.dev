@@ -77,6 +77,8 @@ button { font: inherit; color: inherit; }
 /* ---------- stage ---------- */
 .stage {
   position: relative;
+  /* Safari 26 tints the camera island from the CSS background of what is at the top, not from canvas pixels */
+  background-color: var(--top, #4aa8e8);
   height: clamp(320px, 58svh, 560px);
   overflow: hidden;
   border-bottom: 4px solid var(--edge);
