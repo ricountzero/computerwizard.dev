@@ -29,8 +29,10 @@
 
   const WIZ = {
     h: '#7b4bc4', H: '#4e2c8a', s: '#ffd84a', n: '#6b3e1f', f: '#f4c49c', F: '#d99a73',
-    e: '#2b1a10', r: '#3f6fd6', R: '#2b4d9a', g: '#9aa3b5', c: '#7ef0ff', k: '#5a3416',
+    e: '#2b1a10', r: '#3f6fd6', R: '#2b4d9a', k: '#5a3416',
+    d: '#1d5e2a', v: '#3fa34d', i: '#e6e9ee',
   };
+  // the robe carries a Vim logo: green diamond, silver V
   const WIZ_TOP = [
     '.....hh.....',
     '....hhhH....',
@@ -41,12 +43,49 @@
     '..ffeffeff..',
     '..fffFFfff..',
     '...ffffff...',
-    '..rrrrrrrr..',
-    '.rrrggggrrr.',
-    '.frrgccgrrf.',
-    '..rrggggrr..',
-    '..RrrrrrrR..',
+    '..rrrdrrrr..',
+    '.rrrivirrrr.',
+    '.frdvivdrrf.',
+    '..rrdvdrrr..',
+    '..RrrdrrrR..',
   ];
+
+  // Common Lisp alien (after Conrad Barski's mascot): three eyeballs, toothy grin, scaly back, LISP pennant
+  const LISP = {
+    o: '#2b5e1e', G: '#8fe36b', g: '#6cc650', s: '#b6f294', w: '#ffffff', k: '#1b1b1b',
+    q: '#c0601e', b: '#2f4fb0', f: '#f4f7ff', F: '#b3c4f7', L: '#3a5fd0',
+  };
+  const LISP_MAP = [
+    '................................bbbbbbbbbbbb....',
+    '...............................qfffffffffffFbb..',
+    '...............................qfLffLfLLLfLLLFb.',
+    '...............................qfLffLfLfffLFLFFb',
+    '...............oo..............qfLffLfLLLfLLLFFb',
+    '............ooowwooo..........qbfLffLfffLfLFFFFb',
+    '...........owwowkowwo.......o.qbfLLfLfLLLfLFFFb.',
+    '...........owkoooowko......oGqGbfffffffffffFbb..',
+    '..........ooooGGGGooo......oGqGobbbbbbbbbbbb....',
+    '........ooGGGGGGGGGGGo.....qGGo.................',
+    '......ooGGGGGGGGGGGGGGo....qGGo.................',
+    '.....oGGssGssGGGGGGGGGo..oqGGo..................',
+    '....oGGssGssGsskkkkkkGGooGGGo...................',
+    '...oGGssGssGsskwwwwwwkGGGGoo....................',
+    '...oGssGssGssGskwkwkwkGooo......................',
+    '...oGGGssGssGssGkkkkGGo.........................',
+    '...oGggggggggggggggggGo.........................',
+    '...oGoooGooooooGoooGoo..........................',
+    '...oGo.oGo....oGo.oGo...........................',
+    '..oGo..oGo....oGo..oGo..........................',
+    '..oGo.oGo.....oGo..oGo..........................',
+    '..oGo.oGo.....oGo..oGo..........................',
+    '.oGo..oGo.....oGo...oGo.........................',
+    '.oGo..oGo.....oGo...oGo.........................',
+    'oGGGooGGGo...oGGGo.oGGGo........................',
+    '.ooo..ooo.....ooo...ooo.........................',
+  ];
+  const LISP_W = LISP_MAP[0].length, LISP_H = LISP_MAP.length;
+  const LISP_FLAG = 36; // pennant columns from here on ripple when it waves
+
   const LEGS = [
     ['..RR....RR..', '..kk....kk..'],
     ['...RR..RR...', '...kk..kk...'],
@@ -105,10 +144,18 @@
   const ctx = canvas.getContext('2d');
   const skyL = document.createElement('canvas');
   const fgL = document.createElement('canvas');
+  const frontL = document.createElement('canvas');
   const dyn = document.createElement('canvas');
   const dctx = dyn.getContext('2d');
+  // the Lisp alien is drawn on a half-size pixel grid: the visible canvas is 2× the scene grid
+  const fine = document.createElement('canvas');
+  const fctx = fine.getContext('2d');
+  const themeColor = $('meta[name=theme-color]');
 
   let W, H, hy, walkY, house, plants, stars, clouds, wiz, smoke = [], fx = [], tick = 0, box = {};
+  // the Lisp alien peeks out from behind the house now and then; ?lisp makes it come out right away and often
+  const lispOften = q.has('lisp');
+  const lisp = { t: -1, next: lispOften ? 30 : 300 + Math.random() * 450 };
 
   function layout() {
     const r = canvas.getBoundingClientRect();
@@ -116,7 +163,11 @@
     const P = Math.max(3, Math.round(r.height / 100));
     W = Math.ceil(r.width / P);
     H = Math.ceil(r.height / P);
-    for (const c of [canvas, skyL, fgL, dyn]) { c.width = W; c.height = H; }
+    for (const c of [skyL, fgL, frontL, dyn]) { c.width = W; c.height = H; }
+    for (const c of [canvas, fine]) { c.width = W * 2; c.height = H * 2; }
+    // resizing resets context state: scene drawing stays in scene pixels, scaled up without smoothing
+    ctx.setTransform(2, 0, 0, 2, 0, 0);
+    ctx.imageSmoothingEnabled = false;
     hy = Math.round(H * 0.5);
     walkY = hy + Math.round((H - hy) * 0.38);
     house = { x: Math.max(3, Math.round(W * 0.05)), w: 47, base: walkY - 2 };
@@ -142,6 +193,8 @@
     }
     sky.fillStyle = bottom;
     sky.fillRect(0, hy, W, H - hy);
+    // mobile browsers paint the status bar / notch area with theme-color: match the sky, not the wood
+    themeColor.content = top;
 
     // sun or moon travelling with the real clock
     const t = night ? ((hour + 4) % 24) / 9 : Math.min(1, Math.max(0, (hour - 5) / 15));
@@ -192,13 +245,15 @@
       ox += Math.max(13, span * (.05 + gap() * .36));
     });
 
-    g.fillStyle = '#8a5a2b';
-    for (let x = house.x + house.w + 4; x < W - 1; x += 4) g.fillRect(x, fy, 1, 5);
-    g.fillStyle = '#a8703a';
-    g.fillRect(house.x + house.w + 4, fy + 1, W, 1);
-    g.fillRect(house.x + house.w + 4, fy + 3, W, 1);
-
-    drawHouse(g);
+    // fence and house get their own layer so the Lisp alien can stand behind them
+    const hg = frontL.getContext('2d');
+    hg.clearRect(0, 0, W, H);
+    hg.fillStyle = '#8a5a2b';
+    for (let x = house.x + house.w + 4; x < W - 1; x += 4) hg.fillRect(x, fy, 1, 5);
+    hg.fillStyle = '#a8703a';
+    hg.fillRect(house.x + house.w + 4, fy + 1, W, 1);
+    hg.fillRect(house.x + house.w + 4, fy + 3, W, 1);
+    drawHouse(hg);
 
     // tomato beds below the path
     plants = [];
@@ -214,11 +269,11 @@
     }
 
     // night: bake a blue tint into the static foreground
-    if (night || dusk) {
-      g.globalCompositeOperation = 'source-atop';
-      g.fillStyle = night ? 'rgba(14,24,70,.55)' : 'rgba(120,60,40,.18)';
-      g.fillRect(0, 0, W, H);
-      g.globalCompositeOperation = 'source-over';
+    if (night || dusk) for (const c of [g, hg]) {
+      c.globalCompositeOperation = 'source-atop';
+      c.fillStyle = night ? 'rgba(14,24,70,.55)' : 'rgba(120,60,40,.18)';
+      c.fillRect(0, 0, W, H);
+      c.globalCompositeOperation = 'source-over';
     }
   }
 
@@ -421,7 +476,43 @@
     for (const r of [18, 12, 7]) disc(c, l.x, l.y + 1, r - flicker, 'rgba(255,196,96,.11)');
   }
 
+  // peek timeline in ticks: the pennant pokes out past the garage and waves, then the face leans out, then all slides back.
+  // [tick, columns of the sprite visible past the wall]
+  const LISP_STEPS = [[0, 0], [20, 17], [70, 17], [95, 38], [215, 38], [245, 0]];
+  function lispReveal(t) {
+    let i = 1;
+    while (i < LISP_STEPS.length - 1 && t > LISP_STEPS[i][0]) i++;
+    const [t0, v0] = LISP_STEPS[i - 1], [t1, v1] = LISP_STEPS[i];
+    return Math.round(v0 + (v1 - v0) * Math.min(1, Math.max(0, (t - t0) / (t1 - t0))));
+  }
+
+  function drawLisp(c) {
+    if (lisp.t < 0) return;
+    const show = lispReveal(lisp.t);
+    if (!show) return;
+    // stands behind the garage; only what is past its right wall shows. Coordinates are in half pixels.
+    const edge = (house.x + house.w) * 2;
+    const x0 = edge - LISP_W + show, y0 = house.base * 2 - LISP_H;
+    const blink = lisp.t % 80 > 75;
+    const wave = (lisp.t >> 3) & 1;
+    LISP_MAP.forEach((row, j) => {
+      for (let i = 0; i < LISP_W; i++) {
+        let ch = row[i];
+        if (ch === '.' || x0 + i < edge) continue;
+        if (blink && j < 9 && (ch === 'w' || ch === 'k')) ch = 'G';
+        const dy = i >= LISP_FLAG && ((i - LISP_FLAG) >> 2 & 1) === wave ? 1 : 0;
+        c.fillStyle = LISP[ch];
+        c.fillRect(x0 + i, y0 + j + dy, 1, 1);
+      }
+    });
+  }
+
   function update() {
+    if (lisp.t >= 0 && ++lisp.t > LISP_STEPS[LISP_STEPS.length - 1][0]) {
+      lisp.t = -1;
+      lisp.next = tick + (lispOften ? 60 : 900 + Math.random() * 900);
+    } else if (lisp.t < 0 && tick >= lisp.next) lisp.t = 0;
+
     // wizard wanders, pauses, sometimes turns around
     if (wiz.pause > 0) wiz.pause--;
     else {
@@ -461,6 +552,18 @@
     }
     for (const cl of clouds) cloud(ctx, cl);
     ctx.drawImage(fgL, 0, 0);
+    if (lisp.t >= 0) {
+      fctx.clearRect(0, 0, W * 2, H * 2);
+      drawLisp(fctx);
+      if (night || dusk) {
+        fctx.globalCompositeOperation = 'source-atop';
+        fctx.fillStyle = night ? 'rgba(14,24,70,.55)' : 'rgba(120,60,40,.18)';
+        fctx.fillRect(0, 0, W * 2, H * 2);
+        fctx.globalCompositeOperation = 'source-over';
+      }
+      ctx.drawImage(fine, 0, 0, W, H);
+    }
+    ctx.drawImage(frontL, 0, 0);
 
     dctx.clearRect(0, 0, W, H);
     plants.forEach(p => drawPlant(dctx, p));
