@@ -390,22 +390,44 @@
 
   function drawWizard(c) {
     const moving = wiz.pause <= 0;
-    const step = moving ? (tick >> 3) & 1 : 0;
+    const step = moving ? (tick >> (night ? 4 : 3)) & 1 : 0;
     const y = walkY - 14 - Math.round(wiz.z) - (moving && step ? 1 : 0);
     const x = Math.round(wiz.x);
     c.fillStyle = 'rgba(0,0,0,.18)';
     c.fillRect(x + 2, walkY + 2, 8, 1);
     drawMap(c, WIZ_TOP, WIZ, x, y, wiz.dir < 0);
     drawMap(c, LEGS[step], WIZ, x, y + 14, wiz.dir < 0);
+    if (night) drawLantern(c, x, y);
+  }
+
+  // night patrol: a lantern in the leading hand
+  const lanternAt = (x, y) => ({ x: wiz.dir < 0 ? x : x + 11, y: y + 12 });
+  function drawLantern(c, x, y) {
+    const l = lanternAt(x, y);
+    const frame = '#3a2a1a';
+    c.fillStyle = frame;
+    c.fillRect(l.x, l.y - 2, 1, 1);
+    c.fillRect(l.x - 1, l.y - 1, 3, 1);
+    c.fillRect(l.x - 1, l.y, 1, 2);
+    c.fillRect(l.x + 1, l.y, 1, 2);
+    c.fillRect(l.x - 1, l.y + 2, 3, 1);
+    c.fillStyle = (tick >> 2) % 5 ? '#ffd86b' : '#fff2a8';
+    c.fillRect(l.x, l.y, 1, 2);
+  }
+
+  function drawGlow(c) {
+    const l = lanternAt(Math.round(wiz.x), walkY - 14 - Math.round(wiz.z));
+    const flicker = (tick >> 3) % 7 === 0 ? 1 : 0;
+    for (const r of [18, 12, 7]) disc(c, l.x, l.y + 1, r - flicker, 'rgba(255,196,96,.11)');
   }
 
   function update() {
     // wizard wanders, pauses, sometimes turns around
     if (wiz.pause > 0) wiz.pause--;
     else {
-      wiz.x += wiz.dir * .35;
+      wiz.x += wiz.dir * (night ? .2 : .35);
       if (wiz.x <= wiz.min || wiz.x >= wiz.max) { wiz.dir *= -1; wiz.pause = 30; }
-      else if (Math.random() < .006) { wiz.pause = 40 + Math.random() * 80; if (Math.random() < .5) wiz.dir *= -1; }
+      else if (Math.random() < (night ? .012 : .006)) { wiz.pause = 40 + Math.random() * 80; if (Math.random() < .5) wiz.dir *= -1; }
     }
     if (wiz.z > 0 || wiz.vy) { wiz.z += wiz.vy; wiz.vy -= .25; if (wiz.z <= 0) { wiz.z = 0; wiz.vy = 0; } }
 
@@ -443,7 +465,7 @@
     dctx.clearRect(0, 0, W, H);
     plants.forEach(p => drawPlant(dctx, p));
     for (const s of smoke) { dctx.fillStyle = `rgba(200,200,200,${s.life / 90})`; dctx.fillRect(Math.round(s.x), Math.round(s.y), s.life > 30 ? 2 : 1, 1); }
-    drawWizard(dctx);
+    if (!night) drawWizard(dctx);
     for (const f of fx) {
       if (f.fly && Math.sin(tick / 8 + f.p) < 0) continue;
       dctx.fillStyle = f.c;
@@ -456,6 +478,17 @@
       dctx.globalCompositeOperation = 'source-over';
     }
     ctx.drawImage(dyn, 0, 0);
+    if (night) {
+      // the lantern lights its surroundings and keeps the wizard out of the dark
+      drawGlow(ctx);
+      dctx.clearRect(0, 0, W, H);
+      drawWizard(dctx);
+      dctx.globalCompositeOperation = 'source-atop';
+      dctx.fillStyle = 'rgba(14,24,70,.15)';
+      dctx.fillRect(0, 0, W, H);
+      dctx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(dyn, 0, 0);
+    }
     drawWindow();
   }
 
