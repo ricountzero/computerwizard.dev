@@ -12,6 +12,7 @@
   --green: #4f9e3b;
   --red: #d63c3c;
   --font: "Pixelify Sans", ui-monospace, Menlo, monospace;
+  --text: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -22,9 +23,9 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   color: var(--ink);
-  font: 400 16px/1.4 var(--font);
+  font: 400 16px/1.4 var(--text);
   background: var(--wood) repeating-linear-gradient(180deg, var(--wood) 0 30px, var(--wood-2) 30px 33px);
-  -webkit-font-smoothing: none;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
@@ -34,6 +35,14 @@ a { color: #2a5fb0; }
 ul { list-style: none; margin: 0; padding: 0; }
 h2, h3, p { margin: 0; }
 button { font: inherit; color: inherit; }
+
+/* pixel font for headings, names and labels; running text stays in --text */
+.hud, .dlg-text, .name, .plaque, .tabs button, .page h2, .page h3,
+.sname, .skill b, .slots > li, .quest b, .quest em, .detail b,
+.ava, .who b, .school b, .btn, .sign {
+  font-family: var(--font);
+  -webkit-font-smoothing: none;
+}
 
 /* the wooden menu frame used everywhere */
 .panel {
