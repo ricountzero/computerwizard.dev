@@ -398,6 +398,75 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
   .plaque { font-size: 26px; }
 }
 
+/* desktop: a taller scene, a wider menu and everything a size up */
+@media (min-width: 1024px) {
+  body { font-size: 17px; }
+  .stage { height: clamp(420px, 66svh, 760px); }
+
+  .hud { top: 16px; right: 20px; padding: 12px 18px 10px; font-size: 17px; }
+  .hud-date { font-size: 20px; }
+  .hud-gold img { width: 20px; height: 20px; }
+
+  .dialog { bottom: 20px; max-width: 860px; gap: 8px; }
+  .dlg-text { min-height: 120px; padding: 18px 22px 24px; font-size: 20px; }
+  .more { font-size: 14px; right: 16px; bottom: 8px; }
+  .dlg-who { padding: 10px 14px; }
+  #portrait { width: 84px; height: 70px; }
+  .name { font-size: 15px; }
+
+  .menu { max-width: 1080px; padding: 40px 24px 16px; }
+  .plaque { font-size: 34px; padding: 12px 28px; margin-bottom: 26px; }
+  .plaque small { font-size: 16px; margin-top: 2px; }
+
+  .tabs { gap: 10px; }
+  .tabs button { width: 104px; padding: 10px 6px; font-size: 16px; gap: 4px; }
+  .tabs img { width: 36px; height: 36px; }
+
+  .page { padding: 30px 36px 36px; min-height: 460px; }
+  .page h2 { font-size: 28px; margin-bottom: 16px; }
+  .page h3 { font-size: 20px; margin: 28px 0 12px; }
+  .sub { font-size: 16px; }
+
+  .skills { gap: 14px; }
+  .skill { grid-template-columns: 140px auto 1fr; gap: 18px; font-size: 18px; }
+  .skill b { font-size: 15px; }
+  .pips { gap: 5px; }
+  .pip { flex: none; width: 30px; max-width: none; height: 22px; }
+
+  .slots { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 8px; }
+  .slots > li { min-height: 54px; font-size: 15px; }
+
+  .quests { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; align-items: start; }
+  .quest { padding: 16px 18px; }
+  .quest:hover { transform: translateY(-3px); }
+  .quest b { font-size: 19px; }
+  .giver, .reward { font-size: 14px; }
+  .quest p, .parts { font-size: 15px; }
+  .quest em { font-size: 13px; top: 14px; right: 14px; }
+
+  .items { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  .item img { width: 64px; height: 64px; border-radius: 12px; }
+  .detail { gap: 20px; padding: 20px; }
+  .detail img { width: 80px; height: 80px; border-radius: 14px; }
+  .detail b { font-size: 20px; }
+  .detail p { font-size: 16px; }
+
+  .friends { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 12px; }
+  .friends li { grid-template-columns: 52px 1fr; gap: 6px 14px; padding: 12px 14px; }
+  .ava { width: 52px; height: 52px; font-size: 17px; }
+  .who b { font-size: 17px; }
+  .who span { font-size: 14px; }
+  .hearts { gap: 3px; }
+  .hearts i { width: 18px; height: 18px; }
+  .school { font-size: 16px; gap: 14px; }
+  .school img { width: 50px; height: 60px; }
+
+  .letter { max-width: 720px; margin: 0 auto; padding: 28px 32px; gap: 14px; font-size: 18px; }
+  .btn { font-size: 17px; padding: 9px 18px; }
+
+  footer { font-size: 15px; padding-top: 24px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
