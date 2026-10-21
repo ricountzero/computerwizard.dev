@@ -108,10 +108,11 @@
   const dyn = document.createElement('canvas');
   const dctx = dyn.getContext('2d');
 
-  let W, H, hy, walkY, house, plants, stars, clouds, wiz, smoke = [], fx = [], tick = 0;
+  let W, H, hy, walkY, house, plants, stars, clouds, wiz, smoke = [], fx = [], tick = 0, box = {};
 
   function layout() {
     const r = canvas.getBoundingClientRect();
+    box = { w: r.width, h: r.height };
     const P = Math.max(3, Math.round(r.height / 100));
     W = Math.ceil(r.width / P);
     H = Math.ceil(r.height / P);
@@ -422,8 +423,12 @@
 
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(canvas);
   document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
-  let rt;
-  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { layout(); render(); }, 120); });
+  // watch the canvas box itself: in-app browsers (Telegram) resize the viewport without firing window resize.
+  // The callback runs before paint, so the scene is rebuilt before a stretched frame can show.
+  new ResizeObserver(([e]) => {
+    const { width, height } = e.contentRect;
+    if (width && height && (width !== box.w || height !== box.h)) { layout(); render(); }
+  }).observe(canvas);
 
   // ---------- dialog ----------
   const dlg = $('#dialog');
