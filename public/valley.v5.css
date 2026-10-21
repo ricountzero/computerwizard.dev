@@ -277,6 +277,8 @@ button { font: inherit; color: inherit; }
 .quest:hover { transform: translateX(4px); }
 .quest b { font-size: 17px; padding-right: 90px; }
 .quest b a { color: inherit; }
+.quest.has-ico { padding-left: 70px; }
+.quest-ico { position: absolute; top: 12px; left: 14px; width: 44px; height: 44px; border-radius: 8px; image-rendering: auto; }
 .giver { font-size: 13px; color: var(--ink-soft); }
 .quest p { font-size: 14px; margin: 4px 0; }
 .parts { display: grid; gap: 4px; margin: 0 0 6px; font-size: 14px; }
@@ -365,7 +367,7 @@ button { font: inherit; color: inherit; }
 .hearts i.on { background-image: var(--heart-full); animation: beat .5s var(--ease) both; animation-delay: calc(var(--i) * 80ms); }
 @keyframes beat { from { transform: scale(0); } 60% { transform: scale(1.3); } }
 .school { display: flex; gap: 10px; align-items: center; font-size: 14px; }
-.school img { flex: none; mix-blend-mode: multiply; }
+.school img { flex: none; mix-blend-mode: multiply; image-rendering: auto; }
 
 /* mail */
 .letter {
@@ -453,7 +455,10 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
   .slots > li { min-height: 54px; font-size: 15px; }
 
   .quests { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; align-items: start; }
+  .quests.bots { align-items: stretch; }
   .quest { padding: 16px 18px; }
+  .quest.has-ico { padding-left: 88px; }
+  .quest-ico { top: 16px; left: 18px; width: 54px; height: 54px; border-radius: 10px; }
   .quest:hover { transform: translateY(-3px); }
   .quest b { font-size: 19px; }
   .giver, .reward { font-size: 14px; }

@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/pixelify-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="valley.v1.css">
+  <link rel="stylesheet" href="valley.v5.css">
   <script src="valley.v1.js" defer></script>
 </head>
 <body>
@@ -77,8 +77,6 @@
       </ul>
       <h3>Side quests — just for fun</h3>
       <ul class="quests">
-        <li class="quest"><b><a href="https://t.me/doc_to_docs_bot" target="_blank" rel="noopener">DocToDocs bot ↗</a></b><span class="giver">Telegram</span><p>Converts legacy .doc files into modern .docx, preserving formatting.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
-        <li class="quest"><b><a href="https://t.me/formato_books_bot" target="_blank" rel="noopener">Formato bot ↗</a></b><span class="giver">Telegram</span><p>Converts ebooks between EPUB, MOBI, FB2, PDF, AZW3, TXT and DOCX.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
         <li class="quest"><b>VeggieVision — tomato irrigation</b><span class="giver">from the garden</span><p>Watches soil moisture in the tomato beds and reports it to a server.</p>
           <ul class="parts">
             <li><a href="https://github.com/ricountzero/veggie_vision_firmware" target="_blank" rel="noopener">Firmware ↗</a> Nerves app on a Raspberry Pi Zero 2W, reads an LM393 soil hygrometer over I²C and sends humidity over HTTP.</li>
@@ -89,9 +87,10 @@
       </ul>
     </section>
 
-    <!-- ITEMS: Chrome extensions -->
+    <!-- ITEMS: Chrome extensions & Telegram bots -->
     <section id="items" class="panel page" role="tabpanel" hidden>
       <h2>Collection</h2>
+      <h3>Chrome enchantments</h3>
       <p class="sub">Chrome extensions shipped as <b>ChromaCraft Software</b>. Tap one to inspect.</p>
       <ul class="slots items">
         <li><button class="item" data-tag="Tools" data-desc="Convert e-books between popular formats, including Kindle. Fully offline — books stay on your device." data-url="https://chromewebstore.google.com/detail/elhehkjdhdcncepjicecmildnkmmnpee"><img src="img/ext/elhehkjdhdcncepjicecmildnkmmnpee.webp" width="48" height="48" alt="" loading="lazy"><span>BookShift – E-Book Converter</span></button></li>
@@ -115,6 +114,11 @@
           <a id="d-url" class="btn" target="_blank" rel="noopener">View in store ↗</a>
         </div>
       </div>
+      <h3>Telegram familiars</h3>
+      <ul class="quests bots">
+        <li class="quest has-ico"><img class="quest-ico" src="img/bots/doc_to_docs_bot.webp" width="48" height="48" alt="" loading="lazy"><b><a href="https://t.me/doc_to_docs_bot" target="_blank" rel="noopener">DocToDocs bot ↗</a></b><span class="giver">Telegram</span><p>Converts legacy .doc to .docx, keeping formatting. Engine: headless LibreOffice, OOXML filter.</p><span class="reward">Reward: Go · Telegram Bot API · LibreOffice</span><em class="live">Live</em></li>
+        <li class="quest has-ico"><img class="quest-ico" src="img/bots/formato_books_bot.webp" width="48" height="48" alt="" loading="lazy"><b><a href="https://t.me/formato_books_bot" target="_blank" rel="noopener">Formato bot ↗</a></b><span class="giver">Telegram</span><p>Converts ebooks between EPUB, MOBI, FB2, PDF, AZW3, TXT and DOCX. Engine: Calibre.</p><span class="reward">Reward: Go · Telegram Bot API · Calibre</span><em class="live">Live</em></li>
+      </ul>
     </section>
 
     <!-- FRIENDS: work history -->
