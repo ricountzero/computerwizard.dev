@@ -70,12 +70,21 @@
         <li class="quest"><b>Extension crafting</b><span class="giver">from Macte! Labs</span><p>3+ years building browser extensions on the Chrome Extensions API.</p><span class="reward">Reward: JavaScript · Chrome API</span><em class="done">Completed</em></li>
         <li class="quest"><b>Air defense simulator</b><span class="giver">from AGAT Control Systems</span><p>Training simulation of an air defense system for educational institutions.</p><span class="reward">Reward: C++ · OpenGL</span><em class="done">Completed</em></li>
       </ul>
+      <h3>Open source</h3>
+      <ul class="quests">
+        <li class="quest"><b><a href="https://github.com/nerves-project/nerves_examples/pull/603" target="_blank" rel="noopener">Nerves: Raspberry Pi Zero 2 W ↗</a></b><span class="giver">from nerves-project / nerves_examples · PR #603</span><p>Added support for Raspberry Pi Zero 2 W to the official Nerves examples by including the rpi0_2 target.</p><span class="reward">Reward: Elixir · Nerves</span><em class="merged">Merged</em></li>
+      </ul>
       <h3>Side quests — just for fun</h3>
       <ul class="quests">
         <li class="quest"><b><a href="https://t.me/doc_to_docs_bot" target="_blank" rel="noopener">DocToDocs bot ↗</a></b><span class="giver">Telegram</span><p>Converts legacy .doc files into modern .docx, preserving formatting.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
         <li class="quest"><b><a href="https://t.me/formato_books_bot" target="_blank" rel="noopener">Formato bot ↗</a></b><span class="giver">Telegram</span><p>Converts ebooks between EPUB, MOBI, FB2, PDF, AZW3, TXT and DOCX.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
-        <li class="quest"><b>Tomato irrigation</b><span class="giver">from the garden</span><p>Automated watering for tomato beds on a Raspberry Pi Zero 2W.</p><span class="reward">Reward: Elixir · Nerves</span><em>In progress</em></li>
-        <li class="quest"><b>Motor control</b><span class="giver">from the workshop</span><p>Driving electric motors with PLCs and RP2040 (Pico) microcontrollers.</p><span class="reward">Reward: PLC/ST · C · TinyGo</span><em>In progress</em></li>
+        <li class="quest"><b>VeggieVision — tomato irrigation</b><span class="giver">from the garden</span><p>Watches soil moisture in the tomato beds and reports it to a server.</p>
+          <ul class="parts">
+            <li><a href="https://github.com/ricountzero/veggie_vision_firmware" target="_blank" rel="noopener">Firmware ↗</a> Nerves app on a Raspberry Pi Zero 2W, reads an LM393 soil hygrometer over I²C and sends humidity over HTTP.</li>
+            <li><a href="https://github.com/ricountzero/veggie_vision_web_server" target="_blank" rel="noopener">HTTP server ↗</a> stores the humidity readings. Elixir, Plug, Cowboy.</li>
+          </ul>
+          <span class="reward">Reward: Elixir · Nerves · Plug · Cowboy · I²C</span><em>In progress</em></li>
+        <li class="quest"><b>Motor control</b><span class="giver">from the workshop</span><p>Controlled an electric motor's rotation speed with a PLC driving a variable-frequency drive, programmed in Structured Text.</p><span class="reward">Reward: PLC · Structured Text · VFD</span><em class="done">Completed</em></li>
       </ul>
     </section>
 
@@ -110,8 +119,8 @@
       <h2>Friendship</h2>
       <p class="sub">One heart per year spent together.</p>
       <ul class="friends">
-        <li><span class="ava" style="--c:#3f6fd6">AL</span><span class="who"><b>Andersen Lab</b><span>Go Developer · 2024–2026</span></span><span class="hearts" data-h="3"></span></li>
-        <li><span class="ava" style="--c:#c4552a">ML</span><span class="who"><b>Macte! Labs</b><span>Chrome Extension Developer · 2023–2024</span></span><span class="hearts" data-h="1"></span></li>
+        <li><span class="ava" style="--c:#3f6fd6">AL</span><span class="who"><b>Andersen Lab</b><span>Go Developer · 2024–2026</span></span><span class="hearts" data-h="2"></span></li>
+        <li><span class="ava" style="--c:#c4552a">ML</span><span class="who"><b>Macte! Labs</b><span>Chrome Extension Developer · 2023–2024</span></span><span class="hearts" data-h="2"></span></li>
         <li><span class="ava" style="--c:#2f8f5a">NA</span><span class="who"><b>SolarWinds MSP / N-able</b><span>PHP → Software Developer · 2016–2023</span></span><span class="hearts" data-h="7"></span></li>
         <li><span class="ava" style="--c:#8a5ac4">IB</span><span class="who"><b>IASO Backup Technology</b><span>Frontend Developer · 2015–2016</span></span><span class="hearts" data-h="1"></span></li>
         <li><span class="ava" style="--c:#c49a2a">FL</span><span class="who"><b>Freelance</b><span>Web Developer · 2014–2015</span></span><span class="hearts" data-h="1"></span></li>

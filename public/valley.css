@@ -254,6 +254,11 @@ button { font: inherit; color: inherit; }
 .quest b a { color: inherit; }
 .giver { font-size: 13px; color: var(--ink-soft); }
 .quest p { font-size: 14px; margin: 4px 0; }
+.parts { display: grid; gap: 4px; margin: 0 0 6px; font-size: 14px; }
+.parts li { padding-left: 14px; position: relative; }
+.parts li::before { content: "▸"; position: absolute; left: 0; color: var(--edge-2); }
+.parts a { font-weight: 600; margin-right: 4px; }
+
 .reward { font-size: 13px; color: #2f7a2a; font-weight: 600; }
 .quest em {
   position: absolute;
@@ -266,6 +271,7 @@ button { font: inherit; color: inherit; }
   border: 2px solid var(--edge);
 }
 .quest em.done { background: var(--green); }
+.quest em.merged { background: #8250df; }
 .quest em.live { background: var(--red); animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { transform: scale(1.08); } }
 
@@ -344,7 +350,7 @@ button { font: inherit; color: inherit; }
   transform: rotate(-.6deg);
 }
 .sign { text-align: right; font-weight: 600; }
-.attach { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.attach { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 18px; }
 
 .btn {
   display: inline-block;
