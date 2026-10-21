@@ -213,9 +213,9 @@ button { font: inherit; color: inherit; }
 
 /* skills */
 .skills { display: grid; gap: 10px; }
-.skill { display: grid; grid-template-columns: 112px 1fr auto; align-items: center; gap: 10px; }
+.skill { display: grid; grid-template-columns: 112px 1fr 40px; align-items: center; gap: 10px; }
 .sname { font-weight: 600; }
-.skill b { font-size: 13px; color: var(--ink-soft); }
+.skill b { font-size: 13px; color: var(--ink-soft); text-align: right; white-space: nowrap; }
 .pips { display: flex; gap: 3px; }
 .pip {
   flex: 1;
@@ -429,7 +429,7 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
 
   .skills { gap: 14px; }
   .skill { grid-template-columns: 140px auto 1fr; gap: 18px; font-size: 18px; }
-  .skill b { font-size: 15px; }
+  .skill b { font-size: 15px; text-align: left; }
   .pips { gap: 5px; }
   .pip { flex: none; width: 30px; max-width: none; height: 22px; }
 
