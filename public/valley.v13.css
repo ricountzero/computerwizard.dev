@@ -34,16 +34,17 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* the root carries the sky colour: iOS 26 Safari tints the status bar / camera island from the page background,
-   not from theme-color. body keeps the wood; JS switches the root to wood once the scene is scrolled away. */
+/* iOS 26 Safari ignores theme-color and tints the status bar / camera island from body's background-color.
+   So body's colour is the sky while its opaque wood stripes are a background image on top of it;
+   JS switches the colours to wood once the scene is scrolled away. */
 html { -webkit-text-size-adjust: 100%; background-color: var(--top, #4aa8e8); }
-html.below { background-color: var(--wood); }
+html.below, html.below body { background-color: var(--wood); }
 
 body {
   margin: 0;
   color: var(--ink);
   font: 400 16px/1.4 var(--text);
-  background: var(--wood) repeating-linear-gradient(180deg, var(--wood) 0 30px, var(--wood-2) 30px 33px);
+  background: var(--top, #4aa8e8) repeating-linear-gradient(180deg, var(--wood) 0 30px, var(--wood-2) 30px 33px);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -77,8 +78,6 @@ button { font: inherit; color: inherit; }
 /* ---------- stage ---------- */
 .stage {
   position: relative;
-  /* Safari 26 tints the camera island from the CSS background of what is at the top, not from canvas pixels */
-  background-color: var(--top, #4aa8e8);
   height: clamp(320px, 58svh, 560px);
   overflow: hidden;
   border-bottom: 4px solid var(--edge);
