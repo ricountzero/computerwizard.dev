@@ -181,6 +181,17 @@
 
     // fence along the back of the path
     const fy = walkY - 7;
+
+    // apple and cherry trees just behind the fence; the fence crosses their trunks
+    const fx0 = house.x + house.w + 12, span = W - 8 - fx0;
+    const gap = rng(5);
+    let ox = fx0 + span * (.08 + gap() * .12);
+    ['apple', 'cherry', 'apple', 'cherry'].forEach((kind, i) => {
+      const x = Math.round(ox);
+      if (x + 6 < W) fruitTree(g, x, fy + 4, kind, rng(31 + i));
+      ox += Math.max(13, span * (.05 + gap() * .36));
+    });
+
     g.fillStyle = '#8a5a2b';
     for (let x = house.x + house.w + 4; x < W - 1; x += 4) g.fillRect(x, fy, 1, 5);
     g.fillStyle = '#a8703a';
@@ -228,6 +239,45 @@
     g.fillRect(x + 1, y - 6, 1, 1);
     g.fillRect(x + 3, y - 5, 1, 1);
     if (season === 'winter') g.fillRect(x + 1, y - 7, 3, 1);
+  }
+
+  // round-crowned fruit tree: blossom in spring, fruit in summer/fall, bare in winter
+  function fruitTree(g, x, base, kind, rand) {
+    const px = (c, dx, dy, w = 1, h = 1) => { g.fillStyle = c; g.fillRect(x + dx, base + dy, w, h); };
+    const bark = '#6b3e1f';
+    px(bark, 0, -7, 2, 7);
+    if (season === 'winter') {
+      const twigs = [[0, -8], [0, -9], [1, -10], [1, -11], [-1, -8], [-2, -9], [-3, -10], [-4, -11],
+        [2, -8], [3, -9], [4, -10], [5, -11], [-2, -10], [3, -11]];
+      for (const [dx, dy] of twigs) { px(bark, dx, dy); px('#ffffff', dx, dy - 1); }
+      return;
+    }
+    const cherry = kind === 'cherry';
+    const leaf = {
+      spring: '#5aa83e', summer: '#3f8f3a', fall: cherry ? '#d0582a' : '#c98a2a',
+    }[season];
+    const shade = mix(leaf, '#000000', .2);
+    const rows = [[-2, 5], [-4, 9], [-5, 11], [-5, 11], [-5, 11], [-4, 9], [-2, 5]];
+    rows.forEach(([o, w], i) => {
+      const y = -14 + i;
+      px(leaf, o, y, w, 1);
+      if (i > 2) px(shade, o + w - 3 + (i > 4 ? 1 : 0), y, 3 - (i > 4 ? 1 : 0), 1);
+    });
+    px(mix(leaf, '#ffffff', .25), -2, -13, 2, 1);
+    px(mix(leaf, '#ffffff', .25), -3, -12, 1, 1);
+
+    const spots = {
+      spring: cherry ? ['#ffffff', '#ffffff', '#ffe3ef'] : ['#ffd6e6', '#ffffff', '#ff9cc4'],
+      summer: cherry ? ['#b0102a', '#8c0c22'] : ['#e0412b', '#9fcc3a'],
+      fall: cherry ? [] : ['#d8352a', '#e0412b'],
+    }[season];
+    const count = season === 'spring' ? (cherry ? 14 : 10) : 7;
+    for (let i = 0; spots.length && i < count; i++) {
+      const ry = 1 + (rand() * 5 | 0), r = rows[ry];
+      const dx = r[0] + 1 + (rand() * (r[1] - 2) | 0), dy = -14 + ry;
+      px(spots[i % spots.length], dx, dy);
+      if (cherry && season === 'summer') px(spots[1], dx + 1, dy + 1);
+    }
   }
 
   // modern one-storey house: white walls, low hip roofs, timber accents, garage
