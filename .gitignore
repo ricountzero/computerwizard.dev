@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Cloudflare Wrangler
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+
+# Node (if tooling is ever added)
+node_modules/
+npm-debug.log*
+
+# Env files
+.env*
+!.env.example
+
+# Logs
+*.log
+
+# Working materials, not part of the site
+Profile.pdf
+house.jpg

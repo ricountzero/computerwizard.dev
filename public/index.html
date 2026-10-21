@@ -1,1 +1,147 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>computerwizard.dev</title><h1>computerwizard.dev</h1><p>Coming soon.</p></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Aliaksiej Maroz — computerwizard.dev</title>
+  <meta name="description" content="Aliaksiej Maroz — Senior Software Engineer. Go, PHP, Chrome extensions. Farm edition.">
+  <meta name="theme-color" content="#3b2416">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="valley.css">
+  <script src="valley.js" defer></script>
+</head>
+<body>
+  <header class="stage">
+    <canvas id="scene" aria-label="A pixel-art farm with a little computer wizard walking around"></canvas>
+
+    <div class="hud panel" aria-label="In-game clock">
+      <p class="hud-date"><span id="day">Wed. 21</span></p>
+      <p class="hud-time"><span id="season">Fall</span> · <span id="time">2:00 pm</span></p>
+      <p class="hud-gold"><img data-icon="coin" alt=""> <b>14+</b> yrs</p>
+    </div>
+
+    <button id="dialog" class="dialog" type="button" aria-live="polite">
+      <span class="dlg-text panel"><span id="dtext">Hey there! Welcome to my farm.</span><i class="more" aria-hidden="true">▼</i></span>
+      <span class="dlg-who panel"><canvas id="portrait" width="12" height="10"></canvas><span class="name">Aliaksiej</span></span>
+    </button>
+  </header>
+
+  <main class="menu">
+    <h1 class="plaque">Aliaksiej Maroz <small>Senior Software Engineer · Go &amp; PHP</small></h1>
+
+    <nav class="tabs" role="tablist" aria-label="Game menu">
+      <button role="tab" data-tab="skills" aria-selected="true"><img data-icon="star" alt=""><span>Skills</span></button>
+      <button role="tab" data-tab="quests"><img data-icon="scroll" alt=""><span>Quests</span></button>
+      <button role="tab" data-tab="items"><img data-icon="gem" alt=""><span>Items</span></button>
+      <button role="tab" data-tab="friends"><img data-icon="heart" alt=""><span>Friends</span></button>
+      <button role="tab" data-tab="mail"><img data-icon="letter" alt=""><span>Mail</span></button>
+    </nav>
+
+    <!-- SKILLS -->
+    <section id="skills" class="panel page" role="tabpanel">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill" data-level="10"><span class="sname">Go</span><span class="pips"></span><b>Lv 10</b></div>
+        <div class="skill" data-level="10"><span class="sname">PHP</span><span class="pips"></span><b>Lv 10</b></div>
+        <div class="skill" data-level="10"><span class="sname">Chrome Ext.</span><span class="pips"></span><b>Lv 10</b></div>
+        <div class="skill" data-level="10"><span class="sname">JavaScript</span><span class="pips"></span><b>Lv 10</b></div>
+        <div class="skill" data-level="8"><span class="sname">Python</span><span class="pips"></span><b>Lv 8</b></div>
+      </div>
+
+      <h3>Inventory</h3>
+      <ul class="slots">
+        <li>Erlang</li><li>Elixir</li><li>C++</li><li>C#</li><li>TinyGo</li>
+        <li>PostgreSQL</li><li>RabbitMQ</li><li>Symfony</li><li>Yii2</li><li>WordPress</li>
+        <li>Node.js</li><li>.NET Core</li><li>WebAssembly</li><li>OpenGL</li><li>Tizen OS</li>
+        <li>Raspberry Pi</li><li>RP2040</li><li>Arduino</li><li>PLC (ST)</li><li>Nerves</li><li>Linux</li>
+      </ul>
+    </section>
+
+    <!-- QUESTS -->
+    <section id="quests" class="panel page" role="tabpanel">
+      <h2>Journal</h2>
+      <h3>Main quests</h3>
+      <ul class="quests">
+        <li class="quest"><b>Fintech backend</b><span class="giver">from Andersen Lab</span><p>Services and integrations for financial products, built in Go.</p><span class="reward">Reward: Go · PostgreSQL · RabbitMQ</span><em class="done">Completed</em></li>
+        <li class="quest"><b>RMM dashboard &amp; APS 2.0</b><span class="giver">from SolarWinds MSP / N-able</span><p>Remote monitoring &amp; management dashboard, app packaging, .NET Core integrations.</p><span class="reward">Reward: PHP · Symfony · .NET Core</span><em class="done">Completed</em></li>
+        <li class="quest"><b>Extension crafting</b><span class="giver">from Macte! Labs</span><p>3+ years building browser extensions on the Chrome Extensions API.</p><span class="reward">Reward: JavaScript · Chrome API</span><em class="done">Completed</em></li>
+        <li class="quest"><b>Air defense simulator</b><span class="giver">from AGAT Control Systems</span><p>Training simulation of an air defense system for educational institutions.</p><span class="reward">Reward: C++ · OpenGL</span><em class="done">Completed</em></li>
+      </ul>
+      <h3>Side quests — just for fun</h3>
+      <ul class="quests">
+        <li class="quest"><b><a href="https://t.me/doc_to_docs_bot" target="_blank" rel="noopener">DocToDocs bot ↗</a></b><span class="giver">Telegram</span><p>Converts legacy .doc files into modern .docx, preserving formatting.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
+        <li class="quest"><b><a href="https://t.me/formato_books_bot" target="_blank" rel="noopener">Formato bot ↗</a></b><span class="giver">Telegram</span><p>Converts ebooks between EPUB, MOBI, FB2, PDF, AZW3, TXT and DOCX.</p><span class="reward">Reward: Go · Telegram Bot API</span><em class="live">Live</em></li>
+        <li class="quest"><b>Tomato irrigation</b><span class="giver">from the garden</span><p>Automated watering for tomato beds on a Raspberry Pi Zero 2W.</p><span class="reward">Reward: Elixir · Nerves</span><em>In progress</em></li>
+        <li class="quest"><b>Motor control</b><span class="giver">from the workshop</span><p>Driving electric motors with PLCs and RP2040 (Pico) microcontrollers.</p><span class="reward">Reward: PLC/ST · C · TinyGo</span><em>In progress</em></li>
+      </ul>
+    </section>
+
+    <!-- ITEMS: Chrome extensions -->
+    <section id="items" class="panel page" role="tabpanel">
+      <h2>Collection</h2>
+      <p class="sub">Chrome extensions shipped as <b>ChromaCraft Software</b>. Tap one to inspect.</p>
+      <ul class="slots items">
+        <li><button class="item" data-tag="Tools" data-desc="Convert e-books between popular formats, including Kindle. Fully offline — books stay on your device." data-url="https://chromewebstore.google.com/detail/elhehkjdhdcncepjicecmildnkmmnpee"><img src="img/ext/elhehkjdhdcncepjicecmildnkmmnpee.webp" width="48" height="48" alt="" loading="lazy"><span>BookShift – E-Book Converter</span></button></li>
+        <li><button class="item" data-tag="Tools" data-desc="Convert HEIC photos to JPG, PNG or WebP, keeping photo dates. No uploads, 100% local." data-url="https://chromewebstore.google.com/detail/okphmccgomlfllgmophelfebfgbcknnf"><img src="img/ext/okphmccgomlfllgmophelfebfgbcknnf.webp" width="48" height="48" alt="" loading="lazy"><span>PixForge — HEIC to JPG</span></button></li>
+        <li><button class="item" data-tag="OCR" data-desc="Select any image or screen area and copy its text to the clipboard via OCR." data-url="https://chromewebstore.google.com/detail/nocnogdohhlcfdgmfiooajppbehiddgj"><img src="img/ext/nocnogdohhlcfdgmfiooajppbehiddgj.webp" width="48" height="48" alt="" loading="lazy"><span>SnapScribe — Text from Image</span></button></li>
+        <li><button class="item" data-tag="Tools" data-desc="Quietly saves what you type in forms and editors, so you can restore it after a crash or reload." data-url="https://chromewebstore.google.com/detail/ecencagmclonagdhfmgehbclafiopkee"><img src="img/ext/ecencagmclonagdhfmgehbclafiopkee.webp" width="48" height="48" alt="" loading="lazy"><span>Unlose — Recover Lost Typed Text</span></button></li>
+        <li><button class="item" data-tag="AI · images" data-desc="Marks AI-generated images on any page via C2PA metadata, known AI hosts and pixel analysis." data-url="https://chromewebstore.google.com/detail/gmjjdmnmmjpdbfecnkakiaomdconobkd"><img src="img/ext/gmjjdmnmmjpdbfecnkakiaomdconobkd.webp" width="48" height="48" alt="" loading="lazy"><span>AI Stop Slop</span></button></li>
+        <li><button class="item" data-tag="Sports" data-desc="Live scores, schedule, standings &amp; reminders for the 2026 World Cup." data-url="https://chromewebstore.google.com/detail/gcmmhgkpaeoojhgchlaobbnafoniojcn"><img src="img/ext/gcmmhgkpaeoojhgchlaobbnafoniojcn.webp" width="48" height="48" alt="" loading="lazy"><span>FIFA World Cup 2026</span></button></li>
+        <li><button class="item" data-tag="Sports" data-desc="Live PGA Tour leaderboard and schedule, every Major, player notifications." data-url="https://chromewebstore.google.com/detail/mffkncknmjipeehahfeepijomjdcfhea"><img src="img/ext/mffkncknmjipeehahfeepijomjdcfhea.webp" width="48" height="48" alt="" loading="lazy"><span>Golf Tour Live — PGA Scores &amp; Schedule</span></button></li>
+        <li><button class="item" data-tag="Game" data-desc="2048 with a daily puzzle, combos and bomb tiles. No ads, works offline." data-url="https://chromewebstore.google.com/detail/dceebpghiiljjenbeicllidgknpnkphi"><img src="img/ext/dceebpghiiljjenbeicllidgknpnkphi.webp" width="48" height="48" alt="" loading="lazy"><span>Merge Master 2048</span></button></li>
+        <li><button class="item" data-tag="Game" data-desc="Stack blocks into the tallest tower, with perfect-stack bonuses." data-url="https://chromewebstore.google.com/detail/dfhdgcpchhaeipifobehjocmfgnfahbj"><img src="img/ext/dfhdgcpchhaeipifobehjocmfgnfahbj.webp" width="48" height="48" alt="" loading="lazy"><span>Tower Blocks: Stack &amp; Build</span></button></li>
+      </ul>
+      <div id="detail" class="detail" hidden>
+        <img id="d-img" width="48" height="48" alt="">
+        <div>
+          <b id="d-name"></b>
+          <span id="d-tag" class="giver"></span>
+          <p id="d-desc"></p>
+          <a id="d-url" class="btn" target="_blank" rel="noopener">View in store ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRIENDS: work history -->
+    <section id="friends" class="panel page" role="tabpanel">
+      <h2>Friendship</h2>
+      <p class="sub">One heart per year spent together.</p>
+      <ul class="friends">
+        <li><span class="ava" style="--c:#3f6fd6">AL</span><span class="who"><b>Andersen Lab</b><span>Go Developer · 2024–2026</span></span><span class="hearts" data-h="3"></span></li>
+        <li><span class="ava" style="--c:#c4552a">ML</span><span class="who"><b>Macte! Labs</b><span>Chrome Extension Developer · 2023–2024</span></span><span class="hearts" data-h="1"></span></li>
+        <li><span class="ava" style="--c:#2f8f5a">NA</span><span class="who"><b>SolarWinds MSP / N-able</b><span>PHP → Software Developer · 2016–2023</span></span><span class="hearts" data-h="7"></span></li>
+        <li><span class="ava" style="--c:#8a5ac4">IB</span><span class="who"><b>IASO Backup Technology</b><span>Frontend Developer · 2015–2016</span></span><span class="hearts" data-h="1"></span></li>
+        <li><span class="ava" style="--c:#c49a2a">FL</span><span class="who"><b>Freelance</b><span>Web Developer · 2014–2015</span></span><span class="hearts" data-h="1"></span></li>
+        <li><span class="ava" style="--c:#2a8ac4">YS</span><span class="who"><b>Yumasoft</b><span>Tizen OS Developer · 2013–2014</span></span><span class="hearts" data-h="1"></span></li>
+        <li><span class="ava" style="--c:#a83a2c">AG</span><span class="who"><b>AGAT Control Systems</b><span>C++ Developer · 2011–2013</span></span><span class="hearts" data-h="3"></span></li>
+      </ul>
+      <h3>School</h3>
+      <p class="school"><b>BSUIR</b> — Information Technologies and Control in Technical Systems · 2005–2011</p>
+    </section>
+
+    <!-- MAIL -->
+    <section id="mail" class="panel page" role="tabpanel">
+      <h2>Mailbox</h2>
+      <div class="letter">
+        <p>Dear visitor,</p>
+        <p>Thanks for stopping by the farm! If you need a backend that grows strong — Go, PHP, queues and databases — or a Chrome extension that people actually use, send me a letter.</p>
+        <p>Speaking Russian, Belarusian and English.</p>
+        <p class="sign">— Aliaksiej</p>
+      </div>
+      <nav class="attach">
+        <a class="btn" href="mailto:aliaksiejm@gmail.com">✉ Email</a>
+        <a class="btn" href="https://github.com/ricountzero" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/aliaksiejmaroz" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </nav>
+    </section>
+  </main>
+
+  <footer>
+    <a href="mailto:aliaksiejm@gmail.com">aliaksiejm@gmail.com</a> · <a href="https://github.com/ricountzero" target="_blank" rel="noopener">GitHub</a>
+    <small>© <span id="year">2026</span> computerwizard.dev</small>
+  </footer>
+</body>
+</html>
