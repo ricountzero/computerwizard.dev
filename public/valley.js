@@ -457,13 +457,13 @@
   const INTRO = [
     'Hey there! Welcome to my farm — computerwizard.dev.',
     'I\'m Aliaksiej, a Senior Software Engineer. I grow backends in Go and PHP — 14+ seasons and counting.',
-    'Open the menu below to see my skills, quests, and the Chrome extensions I\'ve shipped.',
+    'Open the menu below to see my skills, quests, and the products I\'ve shipped.',
   ];
   const QUIPS = [
     'My tomatoes report their own soil moisture — VeggieVision, Elixir + Nerves on a Pi Zero 2W.',
     'Let it crash! — every Erlang farmer, ever.',
     'I taught the Nerves examples to run on a Raspberry Pi Zero 2 W. PR #603, merged!',
-    'Check the Items tab: nine Chrome extensions, all shipped as ChromaCraft Software.',
+    'Check the Items tab: that\'s where all the products I\'ve shipped live.',
     'My Telegram bots are written in Go. They never sleep, unlike me.',
     'Fun fact: I once simulated an air defense system in C++ and OpenGL.',
     'Python is my watering can: small scripts, big ✨magic✨.',
