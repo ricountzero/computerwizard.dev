@@ -307,6 +307,27 @@ button { font: inherit; color: inherit; }
 .quest em.live { background: var(--red); animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { transform: scale(1.08); } }
 
+/* app screenshots: horizontal strip */
+.shots {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 8px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  min-width: 0;
+}
+.shots li { flex: none; scroll-snap-align: start; }
+.shots img {
+  display: block;
+  width: 110px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px var(--edge-2);
+  image-rendering: auto;
+}
+
 /* items */
 .items { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
 .items > li { padding: 0; min-height: 0; }
@@ -474,6 +495,8 @@ footer small { flex-basis: 100%; text-align: center; color: #a07a55; }
   .giver, .reward { font-size: 14px; }
   .quest p, .parts { font-size: 15px; }
   .quest em { font-size: 13px; top: 14px; right: 14px; }
+  .shots { gap: 12px; }
+  .shots img { width: 140px; border-radius: 12px; }
 
   .items { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
   .item img { width: 64px; height: 64px; border-radius: 12px; }
